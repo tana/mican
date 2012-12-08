@@ -42,6 +42,7 @@ Feature
       console.log(a)
     map([4, 5, 6]) {|a|
       console.log(a)
+    }
 These are syntax sugar of
     `map([1, 2, 3], fun(a) -> console.log(a))`
 ### Variadic functions
