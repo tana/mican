@@ -1,0 +1,16 @@
+{
+  "name": "mican",
+  "version": "0.0.1",
+  "author": "tana_ash <overthere555@gmail.com>",
+  "license": "MIT",
+  "preferGlobal": "true",
+  "bin": {
+    "mican": "./command.js"
+  },
+  "main": "./compiler.js",
+  "keywords": ["language", "compiler"],
+  "dependencies": {},
+  "devDependencies": {
+    "jison": "0.3.x"
+  }
+}
