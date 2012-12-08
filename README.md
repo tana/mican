@@ -47,7 +47,7 @@ These are syntax sugar of
     `map([1, 2, 3], fun(a) -> console.log(a))`
 ### Variadic functions
 
-    def func(a, b, *rest)
+    def func(a, b, *rest):
       console.log(a)
       console.log(b)
       console.log(rest)
