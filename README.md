@@ -57,7 +57,7 @@ Install
 1. Download zip or tar.gz file
 2. Extract the file
 3. `cd mican-master`
-4. `npm install .`
+4. `npm install . -g`
 
 License
 --------
