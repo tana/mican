@@ -4,16 +4,21 @@ var path = require('path');
 var args = process.argv.slice(2);
 var sources = [];
 var nostdlib = false;
+var showhelp = false;
 for (var i = 0; i < args.length; i++) {
-  if (args[i] == "-n") {
+  if (args[i] == "-n" || args[i] == "--no-stdlib") {
     nostdlib = true;
+  } else if (args[i] == "-h" || args[i] == "--help") {
+    showhelp = true;
   } else {
     sources.push(args[i]);
   }
 }
-if (sources.length == 0) {
+if (sources.length == 0 || showhelp) {
   console.log("Usage: mican [options] [arguments]");
   console.log("  -n    Don't add standard library");
+  console.log("  -h    Show help message");
+  process.exit();
 }
 
 // main.js‚Æ“¯‚¶ƒpƒX‚É‚·‚é

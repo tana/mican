@@ -60,6 +60,14 @@ Install
 3. `cd mican-master`
 4. `npm install . -g`
 
+Usage
+--------
+`mican program.mican`
+
+Generated JavaScript program contains Mican's standard library.
+If you don't want it (e.g. using multiple source files in single page), you can use `mican -n program.mican`.
+
+
 License
 --------
 MIT License
