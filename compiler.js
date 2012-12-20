@@ -83,10 +83,8 @@ function compile(tree, indent, local) {
     }
     return str;
   } else if (tree[0] == "fun") {
-    console.log(tree);
     var params = tree[1];
     var body = tree[2];
-    console.log(params);
     var str = "(function" + compile_params(params) + "{\n";
     if (search_vararg(params) != false) {
       str += vararg_code(params) + "\n";

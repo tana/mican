@@ -21,8 +21,7 @@ if (sources.length == 0 || showhelp) {
   process.exit();
 }
 
-// main.js‚Æ“¯‚¶ƒpƒX‚É‚·‚é
-var stdlib = fs.readFileSync(path.dirname(process.argv[1]) + "/stdlib.js");
+var stdlib = fs.readFileSync(__dirname + "/stdlib.js");
 
 for (var i = 0; i < sources.length; i++) {
   var name = sources[i];
