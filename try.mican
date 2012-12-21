@@ -1,0 +1,58 @@
+compiler = require("compiler")
+stdlib = """function map(array, func) {
+  var result = [];
+  for (var i = 0; i < array.length; i++) {
+    result.push(func(array[i]));
+  }
+  return result;
+}
+
+function filter(array, func) {
+  var result = [];
+  for (var i = 0; i < array.length; i++) {
+    var value = array[i];
+    if (func(value)) {
+      result.push(array[i]);
+    }
+  }
+  return result;
+}
+
+function reduce(array, first, func) {
+  var result = first;
+  for (var i = 0; i < array.length; i++) {
+    result = func(result, array[i]);
+  }
+  return result;
+}
+
+function mergeObject(a, b) {
+  var newobj = {};
+  for (var i in a) {
+    newobj[i] = a[i];
+  }
+  for (var i in b) {
+    newobj[i] = b[i];
+  }
+  return newobj;
+}"""
+
+trylib = """
+function puts(str) {
+  document.getElementById("output").value += str + "\n";
+}
+"""
+
+def execute(code):
+  output = document.getElementById("output")
+  try:
+    js = stdlib + "\n" + trylib + "\n" + compiler.compileCode(code);
+    result = eval(js)
+    output.value = output.value + "=> " + JSON.stringify(result) + "\n"
+  catch e:
+    output.value = output.value + "Error: " + e.message + "\n"
+
+window.addEventListener("load"):
+  document.getElementById("run").addEventListener("click"):
+    codearea = document.getElementById("code")
+    execute(codearea.value)
