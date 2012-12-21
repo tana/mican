@@ -220,7 +220,7 @@ function compile(tree, indent, local) {
     var end = "";
     if (local) {
       start = "(function() {";
-      end = "})";
+      end = "})()";
     }
     var str = "try {\n";
     str += compile_exprs(tree[1], indent + 2, false);

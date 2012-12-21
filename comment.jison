@@ -11,12 +11,13 @@ unesctable["\b"] = "b";
 unesctable["\v"] = "v";
 unesctable["\f"] = "f";
 unesctable["\r"] = "r";
+unesctable["\""] = "\"";
 unesctable["\'"] = "\'";
 unesctable["\\"] = "\\";
 %}
 %s comment
 %s blcomment
-%s heredoc
+%x heredoc
 %%
 <INITIAL>\/\/[^\n\r]*  /* skip */
 /*
@@ -33,8 +34,9 @@ unesctable["\\"] = "\\";
 /* here document */
 <INITIAL>"\"\"\""       this.begin('heredoc'); yytext = "\""; return('CHAR');
 <heredoc>"\"\"\""       this.begin('INITIAL'); yytext = "\""; return('CHAR');
-<heredoc>.|\n|\r\n      {
+<heredoc>.|\n|\r\n|\s      {
   if (yytext in unesctable) yytext = "\\" + unesctable[yytext];
+  if (yytext == "\r\n") yytext = "\\" + unesctable["\n"];
   return('CHAR');
 }
 

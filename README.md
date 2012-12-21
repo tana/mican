@@ -52,6 +52,23 @@ These are syntax sugar of
       console.log(b)
       console.log(rest)
     func(1, 2, 3, 4, 5, 6, 7, 8, 9)
+## Here document
+
+    str = """#
+     #
+      #
+    """
+    console.log(str)
+
+This program prints
+
+    #
+     #
+      #
+
+Try
+-------
+[Try Mican](http://tana..github.com/mican/try.html)
 
 Install
 ---------

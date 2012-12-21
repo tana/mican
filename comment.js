@@ -307,6 +307,7 @@ unesctable["\b"] = "b";
 unesctable["\v"] = "v";
 unesctable["\f"] = "f";
 unesctable["\r"] = "r";
+unesctable["\""] = "\"";
 unesctable["\'"] = "\'";
 unesctable["\\"] = "\\";
 
@@ -330,6 +331,7 @@ case 7:this.begin('INITIAL'); yy_.yytext = "\""; return('CHAR');
 break;
 case 8:
   if (yy_.yytext in unesctable) yy_.yytext = "\\" + unesctable[yy_.yytext];
+  if (yy_.yytext == "\r\n") yy_.yytext = "\\" + unesctable["\n"];
   return('CHAR');
 
 break;
@@ -337,8 +339,8 @@ case 9:return 5;
 break;
 }
 };
-lexer.rules = [/^(?:\/\/[^\n\r]*)/,/^(?:\/\*)/,/^(?:\/\*)/,/^(?:\*\/)/,/^(?:\n|\r\n\b)/,/^(?:.|\n|\r\n\b)/,/^(?:""")/,/^(?:""")/,/^(?:.|\n|\r\n\b)/,/^(?:(.|\n|\r\n))/];
-lexer.conditions = {"heredoc":{"rules":[7,8,9],"inclusive":true},"blcomment":{"rules":[2,3,4,5,9],"inclusive":true},"comment":{"rules":[9],"inclusive":true},"INITIAL":{"rules":[0,1,6,9],"inclusive":true}};
+lexer.rules = [/^(?:\/\/[^\n\r]*)/,/^(?:\/\*)/,/^(?:\/\*)/,/^(?:\*\/)/,/^(?:\n|\r\n\b)/,/^(?:.|\n|\r\n\b)/,/^(?:""")/,/^(?:""")/,/^(?:.|\n|\r\n|\s\b)/,/^(?:(.|\n|\r\n))/];
+lexer.conditions = {"heredoc":{"rules":[7,8],"inclusive":false},"blcomment":{"rules":[2,3,4,5,9],"inclusive":true},"comment":{"rules":[9],"inclusive":true},"INITIAL":{"rules":[0,1,6,9],"inclusive":true}};
 return lexer;})()
 parser.lexer = lexer;
 function Parser () { this.yy = {}; }Parser.prototype = parser;parser.Parser = Parser;

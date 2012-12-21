@@ -61,6 +61,8 @@ esctable["\\"] = "\\";
 
 /* if-else */
 \}[ \t]*\n?[ \t]*else    return 'CLOSEELSE'
+/* try-catch */
+\}[ \t]*\n?[ \t]*catch    return 'CLOSECATCH'
 /* block */
 "{"         return '{'
 "}"         return '}'
@@ -71,7 +73,13 @@ esctable["\\"] = "\\";
 /* string */
 //\"([^\"\n]|[\\\"])*\" return 'STRING'
 <INITIAL>\"     { this.begin('string'); tmp = ""; esc = false; }
-<string>\\      { esc = true; }
+<string>\\      {
+  if (esc) {
+    tmp += "\\";
+    esc = false;
+  }
+  else esc = true;
+}
 <string>[btnvfr\'\\]        {
   if (esc) {
     tmp += esctable[yytext];
@@ -224,17 +232,17 @@ classexpr
   | expr
   ;
 trycatch
-  : TRY optnl '{' optnl optexprs '}' catchfinally
-    { $$ = ["trycatch", $5].concat($7); }
+  : TRY optnl '{' optnl optexprs catchfinally
+    { $$ = ["trycatch", $5].concat($6); }
   ;
 catchfinally
-  : CATCH optnl '{' optnl optexprs '}'
+  : CLOSECATCH optnl '{' optnl optexprs '}'
     { $$ = [[[null, $5]]]; }
-  | CATCH IDENT optnl '{' optnl optexprs '}'
+  | CLOSECATCH IDENT optnl '{' optnl optexprs '}'
     { $$ = [[[$2, $6]]]; }
-  | CATCH optnl '{' optnl optexprs '}' catchfinally2
+  | CLOSECATCH optnl '{' optnl optexprs '}' catchfinally2
     { $$ = $7([[[null, $5]]]); }
-  | CATCH IDENT optnl '{' optnl optexprs '}' catchfinally2
+  | CLOSECATCH IDENT optnl '{' optnl optexprs '}' catchfinally2
     { $$ = $8([[[$2, $6]]]); }
   ;
 catchfinally2
