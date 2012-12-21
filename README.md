@@ -68,7 +68,7 @@ This program prints
 
 Try
 -------
-[Try Mican](http://tana..github.com/mican/try.html)
+[Try Mican](http://tana.github.com/mican/try.html)
 
 Install
 ---------
